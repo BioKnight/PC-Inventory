@@ -8,14 +8,14 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("PC Inventory, Acton")>
+<Assembly: AssemblyTitle("PC Inventory Acton")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("PC Inventory, Acton")>
+<Assembly: AssemblyProduct("PC Inventory Acton")>
 <Assembly: AssemblyCopyright("Copyright ©  2016")>
 <Assembly: AssemblyTrademark("")>
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(True)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("d184caa8-e83c-4cb2-8f05-7d296f262046")>

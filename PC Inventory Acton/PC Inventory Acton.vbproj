@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{033F6B35-1915-4FCC-803F-B2E965164341}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>PC_Inventory__Acton.My.MyApplication</StartupObject>
-    <RootNamespace>PC_Inventory__Acton</RootNamespace>
-    <AssemblyName>PC Inventory, Acton</AssemblyName>
+    <StartupObject>PC_Inventory_Acton.My.MyApplication</StartupObject>
+    <RootNamespace>PC_Inventory_Acton</RootNamespace>
+    <AssemblyName>PC Inventory Acton</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -21,7 +21,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PC Inventory, Acton.xml</DocumentationFile>
+    <DocumentationFile>PC Inventory Acton.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>PC Inventory, Acton.xml</DocumentationFile>
+    <DocumentationFile>PC Inventory Acton.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
