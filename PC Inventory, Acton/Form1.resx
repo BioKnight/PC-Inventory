@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TextBox2.Text" xml:space="preserve">
+    <value>3.30 gigahertz Intel Core i3-3220
+128 kilobyte primary memory cache
+512 kilobyte secondary memory cache
+3072 kilobyte tertiary memory cache
+64-bit ready
+Multi-core (2 total)
+Hyper-threaded (4 total)</value>
+  </data>
+  <data name="rtb_Apps.Text" xml:space="preserve">
+    <value>Adobe Systems - Acrobat Distiller for Windows version 9.0.0.2008061100
+Adobe Systems - Acrobat version 9.0.0.2008061200
+Adobe Systems - Acrobat Update Service version 1.824.16.6751
+Adobe Systems - AcroTray - Adobe Acrobat Distiller helper application. version 9.0.0.2008061100
+Adobe Systems - AIR version 4.0
+Adobe Systems - Flash Player Update Service version 22,0,0,192
+Adobe Systems - Reader version 10.1.16.13
+Adobe Systems - Shockwave Flash version 22,0,0,192 (32/64-bit)
+Amazon - The Amazon 1Button App version 2.3.4 (64-bit)
+Apple - Bonjour version 3,1,0,1 (64-bit)
+Apple - iTunes version 12.3.3.17 (64-bit)
+Apple - MobileDeviceService version 3.3.0.0 (64-bit)
+Apple - Software Update version 2.2
+Belarc - Advisor version 8.5c
+Corel - Burn.Now version 4.5.0.0
+Corel - DVD MovieFactory version 7.0.0.0
+Corel TW - Direct DiscRecorder version 3.6.0.0
+Dolby Laboratories - Demo version 7.2.7000.11
+Dolby Laboratories - Profile Launcher version 7.2.7000.11
+Dolby Laboratories - Profile Selector version 7.2.7000.11
+Google - Chrome version 51.0.2704.103
+Google - Update version 1.3.28.13
+Intel - Active Management Technology Local Manageability Service version 8.0.0.1351
+Intel - AppUp(SM) version 3.6.1.38693
+Intel - BlueTooth High Speed version 15.2.0.0 (64-bit)
+Intel - Bluetooth LE Services Control Program version 2.6.0.260 (64-bit)
+Intel - Capability Licensing Service Interface version 1,23,216,0 (64-bit)
+Intel - Centrino Wireless Bluetooth High Speed version 15, 2, 0, 0 (64-bit)
+Intel - Common User Interface version 8.15.10.2932 (64-bit)
+Intel - Control Center version 1.2.1.1007
+Intel - Dynamic Application Loader Host Interface version 8.0.0.1351
+Intel - IAStorDataSvc version 11.0.0.1032
+Intel - IAStorIcon version 11.0.0.1032
+Intel - IAStorUI version 11.0.0.1032
+Intel - IntelCpHeciSvc Executable version 1,0,1,14
+Intel - Management and Security Application User Notification Service version 8.0.0.1351
+Intel - Management and Security Status version 8.0.0.1351
+Intel - PIconStartup version 8.0.0.1351
+Intel - PROSet/Wireless version 15, 2, 0, 0 (64-bit)
+Intel - QuickLinker version 3.6.1.33057.10
+Intel - run_uninstaller version 3.6.1.33057.10
+Intel - Services Manager version 1.14.1.36458
+Intel - USB 3.0 Monitor version 1.0.0.120
+Lenovo - AIO version 1.0.0.12
+Lenovo - AppShopLauncher Application version 1, 0, 0, 0
+Lenovo - Desktop BIOS version 1.0.0.6
+Lenovo - Message Center Plus version 3.1.0001.00
+Lenovo - Power Manager version 1.0.0.1
+Lenovo - UserGuide version 1.0.0006.00
+Lenovo Group - Power Manager version 1, 0, 0, 2
+Lenovo Group - Power Manager version 1.0.0.0
+Lenovo Group - ThinkVantage AutoLock version 1.51.0.0
+Lenovo Group - ThinkVantage Communications Utility version 3.0.30.0
+Logitech - SetPoint version 5.90.41 (64-bit)
+Logitech - SetPoint version 6.67.83 (64-bit)
+Logitech - Unifying Software version 2.10.37 (64-bit)
+Macrovision Europe - FLEXnet Publisher (32 bit) version 11.5.0.0
+Microsoft - .NET Framework version 2.0.50727.5483 (32/64-bit)
+Microsoft - .NET Framework version 3.0.6920.5011 (64-bit)
+Microsoft - .NET Framework version 4.0.41210.0 (32/64-bit)
+Microsoft - .NET Framework version 4.6.1055.0 (32/64-bit)
+Microsoft - Clip Organizer version 14.0.7107.5000
+Microsoft - CoReXT version 7.250.4311.0 (64-bit)
+Microsoft - Internet Explorer version 11.00.9600.18347 (32/64-bit)
+Microsoft - Movie Maker version 16.4.3505.0912
+Microsoft - Office 2010 version 14.0.7170.5000 (32/64-bit)
+Microsoft - Office version 14.0.0370.400 (64-bit)
+Microsoft - Office InfoPath version 14.0.7162.5000 (32/64-bit)
+Microsoft - Office Source Engine version 14.0.4730.1010
+Microsoft - OneNote version 14.0.7162.5000
+Microsoft - Outlook version 14.0.7169.5000
+Microsoft - Photo Gallery version 16.4.3505.0912
+Microsoft - SelfCert version 14.0.7011.1000
+Microsoft - Silverlight version 5.1.50428.0 (32/64-bit)
+Microsoft - Silverlight Plug-In version 5.1.50428.0 (32/64-bit)
+Microsoft - Touch Pack for Windows 7 version 1,0,40903,00
+Microsoft - Touch Pack for Windows 7 version 1.0.40517.00
+Microsoft - Windows Installer - Unicode version 5.0.7600.16385 (32/64-bit)
+Microsoft - Windows Live version 16.4.6013.0910
+Microsoft - Windows Live Mail version 16.4.3505.0912
+Microsoft - Windows Live Messenger version 16.4.3505.0912
+Microsoft - Windows Live Writer version 16.4.3505.912
+Microsoft - Windows Media Player version 12.0.7600.16385 (32/64-bit)
+Microsoft - Windows Script Host version 5.8.7600.16385 (32/64-bit)
+Microsoft - Windows Search version 7.00.7600.16385 (32/64-bit)
+Motorola Solutions - Intel PROSet\Wireless Bluetooth version 3.0.1302.0308
+No Company Name - Create Recovery Media 
+No Company Name - Lenovo System Update version 5, 7, 0, 29
+No Company Name - Lenovo System Update Service version 5.7.0.29
+No Company Name - NA1Messenger version 19.0.24.0
+No Company Name - Power Manager version 1, 0, 0, 1
+No Company Name - Wireless PAN DHCP and DNS Server version 15, 2, 0, 0 (64-bit)
+Oracle - Java Platform SE 8 version 8.0.910.14
+Oracle - Java Platform SE 8 U91 version 8.0.910.14
+Oracle - Java Platform SE Auto Updater version 2.8.91.14
+Realtek Semiconductor - HD Audio Background Process version 1.0.0.83 (64-bit)
+Realtek Semiconductor - HD Audio Manager version 1, 0, 0, 766 (64-bit)
+Trend Micro - AEGIS version 2.974 (64-bit)
+Trend Micro - Network Security Components version 5.82 (64-bit)
+Trend Micro - OfficeScan Common Client version 19.1 (64-bit)
+Trend Micro - WFBSS version 5.9
+Ulead Systems - ULCDRSvr version 1, 0, 0, 5
+United Parcel Service - WSTDMessaging MFC Application version 19.0.11.0
+United Parcel Service - wstdSupportUtility version 19.0.12.1
+UPS - WorldShip - wstdPldReminder Application version 19, 0, 24, 0
+UPS - WorldShip Shipping System version 19, 0, 24, 0
+UPS - WorldShip Updater version 19.0.24.0</value>
+  </data>
+</root>
