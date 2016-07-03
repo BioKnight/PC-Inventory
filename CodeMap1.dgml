@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph DataVirtualized="True" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="(@1)" Bounds="0,0,191.426666666667,25" CodeSchemaProperty_StrongName="PC Inventory\, Acton, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="NotFetched" ErrorLevel="Error" FilePath="$(033f6b35-1915-4fcc-803f-b2e965164341.OutputPath)" Group="Collapsed" Label="PC Inventory Acton.exe" />
+    <Node Id="(@1)" Bounds="0,0,191.426666666667,25" CodeSchemaProperty_StrongName="PC Inventory\, Acton, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="NotFetched" ErrorLevel="Error" FilePath="$(033f6b35-1915-4fcc-803f-b2e965164341.OutputPath)" Group="Collapsed" Label="PC Inventory Acton.exe" UseManualLocation="True" />
   </Nodes>
   <Links />
   <Properties>
@@ -19,6 +19,7 @@
     <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
     <Property Id="Layout" DataType="System.String" />
     <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
     <Property Id="Value" DataType="System.String" />
     <Property Id="ValueLabel" DataType="System.String" />
     <Property Id="Visibility" Label="Visibility" Description="Defines whether a node in the graph is visible or not" DataType="System.Windows.Visibility" />
