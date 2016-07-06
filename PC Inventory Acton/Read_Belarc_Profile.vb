@@ -93,6 +93,42 @@ Public Class Read_Belarc_Profile
             Return html_list(index).os
         End Get
     End Property
+
+    Public ReadOnly Property os_Install_Date(index As Integer) As String
+        Get
+            Return html_list(index).os_Install_Date
+        End Get
+    End Property
+
+    Public ReadOnly Property boot_mode(index As Integer) As String
+        Get
+            Return html_list(index).boot_Mode
+        End Get
+    End Property
+
+    Public ReadOnly Property proc(index As Integer) As String
+        Get
+            Return html_list(index).proc
+        End Get
+    End Property
+
+    Public ReadOnly Property mem(index As Integer) As String
+        Get
+            Return html_list(index).mem
+        End Get
+    End Property
+
+    Public ReadOnly Property hdds(index As Integer) As String
+        Get
+            Return html_list(index).hdds
+        End Get
+    End Property
+
+    Public ReadOnly Property virus_Protection(index As Integer) As String
+        Get
+            Return html_list(index).virus_protection
+        End Get
+    End Property
 End Class
 
 Public Class HTML_Document_Array
@@ -120,7 +156,6 @@ Public Class HTML_Document_Array
     End Function
 
     Public Function pc_name() As String
-
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Computer Name:", comparisons(5)))
@@ -135,7 +170,6 @@ Public Class HTML_Document_Array
     End Function
 
     Public Function Current_Login() As String
-        'Profile Date:
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Windows Logon:", comparisons(5)))
@@ -149,23 +183,111 @@ Public Class HTML_Document_Array
     End Function
 
     Public Function os() As String
-        'Profile Date:
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Operating System", comparisons(5)))
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            s = s.Replace("   ", " ").Replace("   ", " ").Trim
-            s = s.Replace("  ", " ").Replace("  ", " ").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
             Return s
         Catch ex As Exception
             Return ""
         End Try
     End Function
 
+    Public Function os_Install_Date() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Installed:", comparisons(5)))
+            s = s.Substring(s.IndexOf(":", comparisons(5)) + 1)
+            s = s.Substring(0, s.IndexOf("<", comparisons(5)))
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function boot_Mode() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Boot Mode:", comparisons(5)))
+            s = s.Substring(s.IndexOf(":", comparisons(5)) + 1)
+            s = s.Substring(0, s.IndexOf("<", comparisons(5)) - 1)
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function proc() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Processor", comparisons(5)))
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(0, s.IndexOf("<", comparisons(5)))
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function mem() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Memory Modules <", comparisons(5)))
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(0, s.IndexOf("<", comparisons(5)))
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function hdds() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Drives", comparisons(5)))
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(0, s.IndexOf("<", comparisons(5)))
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function virus_protection() As String
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("<CAPTION>						Virus Protection", comparisons(5)))
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(0, s.IndexOf("</TD>", comparisons(5)))
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("<B>", " ").Replace("</B>", " ").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Function installed_Apps() As Integer
+
+        Return 999
+    End Function
+
     Public Function profile_date() As String
-        'Profile Date:
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Profile Date:", comparisons(5)))

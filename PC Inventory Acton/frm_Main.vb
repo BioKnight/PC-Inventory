@@ -37,6 +37,12 @@ Public Class frm_Main
         lbl_File_Location.Text = belarc_read.file(index_temp).FullName
         lbl_User.Text = belarc_read.Current_Login(index_temp)
         lbl_OS.Text = belarc_read.os(index_temp)
+        lbl_Install_Date.Text = belarc_read.os_Install_Date(index_temp)
+        lbl_Boot_Mode.Text = belarc_read.boot_mode(index_temp)
+        lbl_Processor.Text = belarc_read.proc(index_temp)
+        lbl_Memory.Text = belarc_read.mem(index_temp)
+        lbl_Storage.Text = belarc_read.hdds(index_temp)
+        lbl_Virus_Protection.Text = belarc_read.virus_Protection(index_temp)
     End Sub
 
 
