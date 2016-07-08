@@ -129,6 +129,12 @@ Public Class Read_Belarc_Profile
             Return html_list(index).virus_protection
         End Get
     End Property
+
+    Public ReadOnly Property app_Count(index As Integer) As Integer
+        Get
+            Return html_list(index).installed_Apps
+        End Get
+    End Property
 End Class
 
 Public Class HTML_Document_Array
@@ -283,6 +289,27 @@ Public Class HTML_Document_Array
     End Function
 
     Public Function installed_Apps() As Integer
+        Try
+            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
+            s = s.Substring(s.IndexOf("Software Versions &amp; Usage", comparisons(5)))
+            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
+            s = s.Substring(s.IndexOf("<TD", comparisons(5)) + 4)
+            s = s.Substring(0, s.IndexOf("</TD></TR></TBODY>", comparisons(5)))
+            's = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            's = s.Replace("<B>", " ").Replace("</B>", " ").Trim
+            's = s.Replace("   ", " ").Replace("  ", " ").Trim
+
+            Dim temp_String() As String = s.Split("</A>")
+            For Each line As String In temp_String
+                line.Replace(vbCr, "").Replace(vbLf, "").Replace(vbCrLf, "").Replace(vbTab, "")
+
+                Console.WriteLine(line)
+            Next
+
+            Return s
+        Catch ex As Exception
+            Return ""
+        End Try
 
         Return 999
     End Function

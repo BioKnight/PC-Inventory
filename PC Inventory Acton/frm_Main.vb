@@ -43,6 +43,7 @@ Public Class frm_Main
         lbl_Memory.Text = belarc_read.mem(index_temp)
         lbl_Storage.Text = belarc_read.hdds(index_temp)
         lbl_Virus_Protection.Text = belarc_read.virus_Protection(index_temp)
+        lbl_Software_Count.Text = belarc_read.app_Count(index_temp)
     End Sub
 
 
