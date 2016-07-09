@@ -139,6 +139,7 @@ End Class
 
 Public Class HTML_Document_Array
     Private doc As String
+    Dim all_Apps As New List(Of String)
 
     Private comparisons() As StringComparison = CType([Enum].GetValues(GetType(StringComparison)), StringComparison())
 
@@ -288,44 +289,62 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
+    ' This function is VERY slow because we iterate through the list multiple time.  There has to be a faster/cleaner way to do this.
+    ''' <summary>
+    ''' Gets a count of all the applications, and fills a list containing all the application names.
+    ''' </summary>
+    ''' <returns>Application count</returns>
     Public Function installed_Apps() As Integer
         Try
+            ' Take out the part with the application names.
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Software Versions &amp; Usage", comparisons(5)))
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
             s = s.Substring(s.IndexOf("<TD", comparisons(5)) + 4)
             s = s.Substring(0, s.IndexOf("</TD></TR></TBODY>", comparisons(5)))
-            's = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            's = s.Replace("<B>", " ").Replace("</B>", " ").Trim
-            's = s.Replace("   ", " ").Replace("  ", " ").Trim
+            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
+            s = s.Replace("<B>", " ").Replace("</B>", " ").Trim
+            s = s.Replace("   ", " ").Replace("  ", " ").Trim
 
-            Dim temp_String() As String = s.Split("</A>")
-            Dim final_String As New List(Of String)
+            Dim temp_String As New List(Of String)
+            temp_String.AddRange(s.Split("</A>"))
+            Dim modified_List As New List(Of String)
+
+            ' Get just the parts with Applications.
             For Each line As String In temp_String
-                line.Replace(vbCr, "").Replace(vbLf, "").Replace(vbCrLf, "").Replace(vbTab, "").Trim()
-                line.Replace("/A>", "")
                 Dim count As Integer = 0
                 If line.Contains("&nbsp") Then
                     count += 1
-                    final_String.Add(line)
+                    modified_List.Add(line)
                     Console.WriteLine(line)
                 End If
             Next
-            For x As Integer = 0 To final_String.Count
-                If final_String(x).Contains("SPAN") Then
-                    final_String.RemoveAt(x)
-                    Continue For
+            temp_String.Clear()
+
+            ' seperate out all the unwanted parts
+            For Each line As String In modified_List
+                If Not line.Contains("SPAN") Then
+                    If line(0) = "A" Then Continue For
+                    temp_String.Add(line)
                 End If
-                Console.WriteLine(final_String(x))
-
             Next
+            modified_List.Clear()
 
-            Return s
+            ' Clean the list of apps
+            For Each line As String In temp_String
+                Console.WriteLine(line)
+                modified_List.Add(line.Remove(0, line.LastIndexOf(";") + 1))
+                Console.WriteLine(modified_List.ToArray.ToString)
+            Next
+            temp_String.Clear()
+
+            all_Apps = modified_List
+            Return all_Apps.Count
         Catch ex As Exception
-            Return ""
+            Return -1
         End Try
 
-        Return 999
+        Return 9999
     End Function
 
     Public Function profile_date() As String
