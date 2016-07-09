@@ -289,14 +289,13 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
-    ' This function is VERY slow because we iterate through the list multiple time.  There has to be a faster/cleaner way to do this.
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
     ''' <returns>Application count</returns>
     Public Function installed_Apps() As Integer
         Try
-            ' Take out the part with the application names.
+            ' Take out the part with the application names, and clean up some of the HTML code.
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Software Versions &amp; Usage", comparisons(5)))
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
@@ -307,38 +306,20 @@ Public Class HTML_Document_Array
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
 
             Dim temp_String As New List(Of String)
-            temp_String.AddRange(s.Split("</A>"))
-            Dim modified_List As New List(Of String)
+            temp_String.AddRange(s.Split("</A>"))   ' Create a list of seperate lines.
 
             ' Get just the parts with Applications.
+            ' then remove lines starting with A
+            ' then remove lines containing SPAN
+            ' Then clean up the line with our application title and add to the final list
             For Each line As String In temp_String
-                Dim count As Integer = 0
                 If line.Contains("&nbsp") Then
-                    count += 1
-                    modified_List.Add(line)
-                    Console.WriteLine(line)
-                End If
-            Next
-            temp_String.Clear()
-
-            ' seperate out all the unwanted parts
-            For Each line As String In modified_List
-                If Not line.Contains("SPAN") Then
                     If line(0) = "A" Then Continue For
-                    temp_String.Add(line)
+                    If line.Contains("SPAN") Then Continue For
+                    all_Apps.Add(line.Remove(0, line.LastIndexOf(";") + 1))
                 End If
             Next
-            modified_List.Clear()
 
-            ' Clean the list of apps
-            For Each line As String In temp_String
-                Console.WriteLine(line)
-                modified_List.Add(line.Remove(0, line.LastIndexOf(";") + 1))
-                Console.WriteLine(modified_List.ToArray.ToString)
-            Next
-            temp_String.Clear()
-
-            all_Apps = modified_List
             Return all_Apps.Count
         Catch ex As Exception
             Return -1
