@@ -300,10 +300,24 @@ Public Class HTML_Document_Array
             's = s.Replace("   ", " ").Replace("  ", " ").Trim
 
             Dim temp_String() As String = s.Split("</A>")
+            Dim final_String As New List(Of String)
             For Each line As String In temp_String
-                line.Replace(vbCr, "").Replace(vbLf, "").Replace(vbCrLf, "").Replace(vbTab, "")
+                line.Replace(vbCr, "").Replace(vbLf, "").Replace(vbCrLf, "").Replace(vbTab, "").Trim()
+                line.Replace("/A>", "")
+                Dim count As Integer = 0
+                If line.Contains("&nbsp") Then
+                    count += 1
+                    final_String.Add(line)
+                    Console.WriteLine(line)
+                End If
+            Next
+            For x As Integer = 0 To final_String.Count
+                If final_String(x).Contains("SPAN") Then
+                    final_String.RemoveAt(x)
+                    Continue For
+                End If
+                Console.WriteLine(final_String(x))
 
-                Console.WriteLine(line)
             Next
 
             Return s
