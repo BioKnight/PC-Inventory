@@ -3,7 +3,8 @@ Public Class frm_Main
     Private index_temp As Integer = 0
     Private belarc_read As New Read_Belarc_Profile
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles Me.Load
-        belarc_read.load_Directory(New DirectoryInfo("C:\Users\Randy\Desktop\Computer Profiles"))
+        belarc_read.load_Directory(New DirectoryInfo("C:\Users\Randy\Dropbox (CVI)\CVI Team Folder\Acton\Weekly Reporting\Computer Profiles\Acton"))
+        belarc_read.load_Directory(New DirectoryInfo("C:\Users\Randy\Dropbox (CVI)\CVI Team Folder\Acton\Weekly Reporting\Computer Profiles\Flontech"))
         lbl_Record_Count.Text = belarc_read.open_Files
         fill_form()
     End Sub

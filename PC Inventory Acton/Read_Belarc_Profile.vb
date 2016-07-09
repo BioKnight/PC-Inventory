@@ -289,6 +289,7 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
+    ' ************* This functions needs to be re-worked as it failes on some of the files.
     Public Function virus_protection() As String
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
