@@ -305,6 +305,9 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
+    ' *************  This function needs to be completely re-written.  It is to dependent on the HTML files being formated
+    ' *************  The same, AND they are far from.
+    ' #############  I think I have corrected the issue mentioned above.
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
@@ -313,45 +316,34 @@ Public Class HTML_Document_Array
         If all_Apps.Count > 0 Then Return all_Apps.Count
         Try
             ' Take out the part with the application names, and clean up some of the HTML code.
-            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
-            s = s.Substring(s.IndexOf("Software Versions &amp; Usage", comparisons(5)))
-            ' For some reason, some of the HTML files have this string at the beginning of the file.
-            ' Working on pulling the correct instance.
-            If s.Length > 58394 Then
-                Console.WriteLine("test")
+            Dim Temp_String As String = doc.Substring(doc.IndexOf("[Software Versions]", comparisons(5))) ' Create a new string starting at the applications section of the HTML code.
+            Temp_String = Temp_String.Substring(Temp_String.IndexOf(">i</SPAN></A>", comparisons(5)) + 13) ' Remove some of the unneeded beginning of the string.
+            Temp_String = Temp_String.Substring(0, Temp_String.IndexOf("</table>", comparisons(5))) ' Set the end of the block of HTML code.
 
-            End If
-            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
-            s = s.Substring(s.IndexOf("<TD", comparisons(5)) + 4)
-            s = s.Substring(0, s.IndexOf("</TD></TR></TBODY>", comparisons(5)))
-            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            s = s.Replace("<B>", " ").Replace("</B>", " ").Trim
-            s = s.Replace("   ", " ").Replace("  ", " ").Trim
+            Temp_String = Temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim ' Remove some of the unwanted formating from the HTML code.
+            Temp_String = Temp_String.Replace("<B>", " ").Replace("</B>", " ").Trim ' Remove more of the unwanted formating from the HTML.
+            Temp_String = Temp_String.Replace("   ", " ").Replace("  ", " ").Trim ' Remove the extra spacing of the unwanted HTML.
 
-            Dim temp_String As New List(Of String)
-            temp_String.AddRange(s.Split("</A>"))   ' Create a list of seperate lines.
+            Dim temp_String_list As New List(Of String)
+            temp_String_list.AddRange(Temp_String.Split("</A>"))   ' Create a list of seperate lines.
 
-            ' Get just the parts with Applications.
-            ' then remove lines starting with A
-            ' then remove lines containing SPAN
-            ' Then clean up the line with our application title and add to the final list
-            For Each line As String In temp_String
-                If line.Contains("&nbsp") Then
-                    If line(0) = "A" Then Continue For
-                    If line.Contains("SPAN") Then Continue For
-                    Dim temp_Line As String = line.Remove(0, line.LastIndexOf(";") + 1)
-                    temp_Line = temp_Line.Replace("   ", " ").Trim()
-
-                    all_Apps.Add(temp_Line)
+            For Each line As String In temp_String_list
+                If line.Contains("&nbsp") Then ' Get just the parts with Application titles.
+                    If line(0) = "A" Then Continue For ' Remove lines starting with A.
+                    If line.Contains("SPAN") Then Continue For ' remove lines containing SPAN.
+                    Dim temp_Line As String = line.Remove(0, line.LastIndexOf(";") + 1) ' Remove the unwanted section at the beginning of the line.
+                    temp_Line = temp_Line.Replace("   ", " ").Trim() ' remove large spaces, beginning, and trailing spaces.
+                    If temp_Line = "" Then Continue For ' Do not add blank lines.
+                    all_Apps.Add(temp_Line) ' Add the application title to the list.
                 End If
             Next
 
-            Return all_Apps.Count
+            Return all_Apps.Count   ' Return the final Count.
         Catch ex As Exception
-            Return -1
+            Return -1   ' If we get an error return -1 so we know there was an error
         End Try
 
-        Return 9999
+        Return 9999     ' If we get here return a ridiculous number so we know something went wrong.
     End Function
 
     Public Function profile_date() As String
