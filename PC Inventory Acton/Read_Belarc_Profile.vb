@@ -21,7 +21,7 @@ Public Class Read_Belarc_Profile
     ''' </summary>
     ''' <param name="file">A file as a string. (ex: C:\profiles\profile.html)</param>
     Public Sub read_html_Profile(file As String)
-
+        read_html_Profile(New FileInfo(file))
     End Sub
     ''' <summary>
     ''' Reads an HTML file into an array for parsing.
@@ -35,7 +35,7 @@ Public Class Read_Belarc_Profile
     ''' </summary>
     ''' <param name="directory">A directory as a string. (ex: C:\profiles)</param>
     Public Sub load_Directory(directory As String)
-
+        load_Directory(New DirectoryInfo(directory))
     End Sub
     ''' <summary>
     ''' Loads a directory and reads all HTML files into seperate arrays for parsing.
