@@ -135,14 +135,30 @@ Public Class Read_Belarc_Profile
             Return html_list(index).installed_Apps
         End Get
     End Property
+
+    Public ReadOnly Property Applications(index As Integer) As List(Of String)
+        Get
+            Return html_list(index).Applications
+        End Get
+    End Property
 End Class
 
 Public Class HTML_Document_Array
     Private doc As String
-    Dim all_Apps As New List(Of String)
+    Private all_Apps As New List(Of String)
 
     Private comparisons() As StringComparison = CType([Enum].GetValues(GetType(StringComparison)), StringComparison())
 
+
+    ''' <summary>
+    ''' Expose the list of Applications without allowing for external changes.
+    ''' </summary>
+    ''' <returns>List of String</returns>
+    Public ReadOnly Property Applications As List(Of String)
+        Get
+            Return all_Apps
+        End Get
+    End Property
 
     Public ReadOnly Property html_Document
         Get
@@ -294,10 +310,17 @@ Public Class HTML_Document_Array
     ''' </summary>
     ''' <returns>Application count</returns>
     Public Function installed_Apps() As Integer
+        If all_Apps.Count > 0 Then Return all_Apps.Count
         Try
             ' Take out the part with the application names, and clean up some of the HTML code.
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Software Versions &amp; Usage", comparisons(5)))
+            ' For some reason, some of the HTML files have this string at the beginning of the file.
+            ' Working on pulling the correct instance.
+            If s.Length > 58394 Then
+                Console.WriteLine("test")
+
+            End If
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
             s = s.Substring(s.IndexOf("<TD", comparisons(5)) + 4)
             s = s.Substring(0, s.IndexOf("</TD></TR></TBODY>", comparisons(5)))
@@ -316,7 +339,10 @@ Public Class HTML_Document_Array
                 If line.Contains("&nbsp") Then
                     If line(0) = "A" Then Continue For
                     If line.Contains("SPAN") Then Continue For
-                    all_Apps.Add(line.Remove(0, line.LastIndexOf(";") + 1))
+                    Dim temp_Line As String = line.Remove(0, line.LastIndexOf(";") + 1)
+                    temp_Line = temp_Line.Replace("   ", " ").Trim()
+
+                    all_Apps.Add(temp_Line)
                 End If
             Next
 

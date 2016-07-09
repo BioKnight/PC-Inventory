@@ -44,6 +44,8 @@ Public Class frm_Main
         lbl_Storage.Text = belarc_read.hdds(index_temp)
         lbl_Virus_Protection.Text = belarc_read.virus_Protection(index_temp)
         lbl_Software_Count.Text = belarc_read.app_Count(index_temp)
+        lst_Software.Items.Clear()
+        lst_Software.Items.AddRange(belarc_read.Applications(index_temp).ToArray)
     End Sub
 
 
