@@ -54,6 +54,7 @@ Public Class Read_Belarc_Profile
         Dim temp_string As String = ""
         With html_list(index)
             temp_string &= .computer_Name & ","
+            temp_string &= .current_Domain & ","
             temp_string &= .computer_model & ","
             temp_string &= .system_serial & ","
             temp_string &= .installed_Processor & ","
@@ -165,6 +166,84 @@ Public Class Read_Belarc_Profile
             Return html_list(index).system_serial
         End Get
     End Property
+
+    Public ReadOnly Property domain(index) As String
+        Get
+            Return html_list(index).current_Domain
+        End Get
+    End Property
+
+    Public ReadOnly Property enclosure_Type(index) As String
+        Get
+            Return html_list(index).enclosure_Style
+        End Get
+    End Property
+
+    Public ReadOnly Property full_system_model_info(index) As String
+        Get
+            Return PC_Model(index) & vbCrLf &
+            "Serial: " & serial(index) & vbCrLf &
+            "Style: " & enclosure_Type(index)
+        End Get
+    End Property
+
+    Public ReadOnly Property full_processor_info(index) As String
+        Get
+            Return html_list(index).full_processor_info
+        End Get
+    End Property
+
+    Public ReadOnly Property full_Memory_Info(index) As String
+        Get
+            Return html_list(index).full_Memory_info
+        End Get
+    End Property
+
+    Public ReadOnly Property full_Drive_Info(index) As String
+        Get
+            Return html_list(index).full_Drive_Info
+        End Get
+    End Property
+
+    Public Function all_PCs_Apps() As String
+        ' pc1 name,     pc2 name,       pc3 name
+        ' pc1 Software, pc2 Software,   pc3 Software
+        Dim pcs(html_list.Count) as string
+        Dim pcs_Apps(html_list.Count - 1, 500) As String
+        Dim cur_pc As Integer = 0
+        Dim cur_app As Integer = 0
+        Dim max_app As Integer = 0
+
+        Dim output_string As String = ""
+
+        For Each pc As HTML_Document_Array In html_list
+            pcs_Apps(cur_pc, cur_app) = pc.computer_Name
+            cur_app += 1
+            For Each app As String In pc.Applications
+                pcs_Apps(cur_pc, cur_app) = app
+                cur_app += 1
+            Next
+            If cur_app > max_app Then max_app = cur_app
+            cur_app = 0
+            cur_pc += 1
+        Next
+        Array.Sort(pcs_Apps)
+
+        ' Build the Output
+
+        For x As Integer = 0 To cur_pc - 1
+            output_string &= pcs_Apps(x, 0) & ","
+        Next
+        output_string &= vbCrLf
+        For y As Integer = 0 To max_app - 1
+            For x As Integer = 0 To cur_pc - 1
+                output_string &= pcs_Apps(x, y) & ","
+            Next
+            output_string &= vbCrLf
+        Next
+
+        Return output_string
+    End Function
 End Class
 
 ' *****************************************************************************************
@@ -172,7 +251,7 @@ End Class
 Public Class HTML_Document_Array
     Implements System.IDisposable
     Private doc, PC_nme, op_sys, os_Install, boot_method, processor, memory, hd_space, virus_Soft, profiled_on As String
-    Private model, pc_Serial, profiled_user As String
+    Private model, pc_Serial, profiled_user, pc_domain, enclosure_Type, full_proc_info, full_mem_info, full_drv_Info As String
     Private all_Apps As New List(Of String)
     ' Track whether Dispose has been called.
     Private disposed As Boolean = False
@@ -279,6 +358,36 @@ Public Class HTML_Document_Array
         End Get
     End Property
 
+    Public ReadOnly Property current_Domain As String
+        Get
+            Return pc_domain
+        End Get
+    End Property
+
+    Public ReadOnly Property enclosure_Style As String
+        Get
+            Return enclosure_Type
+        End Get
+    End Property
+
+    Public ReadOnly Property full_processor_info As String
+        Get
+            Return full_proc_info
+        End Get
+    End Property
+
+    Public ReadOnly Property full_Memory_info As String
+        Get
+            Return full_mem_info
+        End Get
+    End Property
+
+    Public ReadOnly Property full_Drive_Info As String
+        Get
+            Return full_drv_info
+        End Get
+    End Property
+
 
     ''' <summary>
     ''' Create a new instance of this class.
@@ -303,6 +412,11 @@ Public Class HTML_Document_Array
         profile_date()
         PC_Model()
         serial()
+        Domain()
+        enclosure()
+        full_proc_nfo()
+        full_mem_nfo()
+        full_Drive_nfo()
     End Sub
 
     Public Overloads Sub Dispose() Implements IDisposable.Dispose
@@ -343,8 +457,6 @@ Public Class HTML_Document_Array
 
     ' ### Private section ###
 
-    ' Use interop to call the method necessary  
-    ' to clean up the unmanaged resource.
     <System.Runtime.InteropServices.DllImport("Kernel32")>
     Private Shared Function CloseHandle(ByVal handle As IntPtr) As [Boolean]
     End Function
@@ -559,4 +671,89 @@ Public Class HTML_Document_Array
         End Try
     End Sub
 
+    Private Sub Domain()
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("(in ", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(0, temp_String.IndexOf(")", comparisons(5)))
+            pc_domain = temp_String
+        Catch ex As Exception
+            pc_domain = ex.Message
+        End Try
+    End Sub
+
+    Private Sub enclosure()
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("Enclosure Type:", comparisons(5)))
+            temp_String = temp_String.Substring(temp_String.IndexOf(":", comparisons(5)))
+            temp_String = temp_String.Replace(":", "")
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("<", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            enclosure_Type = temp_String
+        Catch ex As Exception
+            enclosure_Type = ex.Message
+        End Try
+    End Sub
+
+    Private Sub full_proc_nfo()
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("[Processor]", comparisons(5)))
+            temp_String = temp_String.Substring(temp_String.IndexOf("<td>", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("</td>", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            temp_String = temp_String.Replace("<BR>", vbCrLf).Replace("<br>", vbCrLf).Trim
+            full_proc_info = temp_String
+        Catch ex As Exception
+            full_proc_info = ex.Message
+        End Try
+    End Sub
+
+    Private Sub full_mem_nfo()
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("[Memory Modules]", comparisons(5)))
+            temp_String = temp_String.Remove(0, 10)
+            temp_String = temp_String.Substring(temp_String.IndexOf("Memory Modules", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(temp_String.IndexOf("<td>", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("</td>", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            temp_String = temp_String.Replace("<BR>", vbCrLf).Replace("<br>", vbCrLf).Trim
+            full_mem_info = temp_String
+        Catch ex As Exception
+            full_mem_info = ex.Message
+        End Try
+    End Sub
+
+    Private Sub full_Drive_nfo()
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("[Drives]", comparisons(5)))
+            temp_String = temp_String.Substring(temp_String.IndexOf("<td>", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("</td>", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            temp_String = temp_String.Replace("<BR>", vbCrLf).Replace("<br>", vbCrLf)
+            temp_String = temp_String.Replace("    ", " ").Replace("   ", " ").Replace("  ", " ")
+            Dim remove_string = temp_String.Substring(temp_String.IndexOf("<A", comparisons(5)))
+            remove_string = remove_string.Substring(0, remove_string.IndexOf(">") + 1)
+            temp_String = temp_String.Replace(remove_string, "")
+            temp_String = temp_String.Replace("</a>", "").Replace("</A>", "").Trim
+            temp_String = temp_String.Remove(temp_String.IndexOf(", rev", comparisons(5)))
+            Dim placement_Correction As String() = temp_String.Split(vbCrLf)
+            Dim temp_Array(placement_Correction.Count - 1) As String
+            Dim place As Integer = 0
+            For line_numb As Integer = 0 To placement_Correction.Count - 1
+                Dim line As String = placement_Correction(line_numb)
+                line = line.Replace(vbLf, "").Replace(vbCr, "").Replace(vbCrLf, "")
+                If line.Contains("--") Then
+                    temp_Array(line_numb) = line.Insert(0, line.Substring(line.IndexOf("--"), 10) & ": ").Remove(line.IndexOf("--") + 11) & vbCrLf
+                Else
+                    full_drv_Info &= line & vbCrLf
+                End If
+            Next
+            Array.Sort(temp_Array)
+            For Each item As String In temp_Array
+                full_drv_Info &= item
+            Next
+            'full_drv_Info = temp_String
+        Catch ex As Exception
+            full_drv_Info = ex.Message
+        End Try
+    End Sub
 End Class

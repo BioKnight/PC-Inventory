@@ -141,7 +141,7 @@ Partial Class frm_Main
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_PC_Name)
         Me.tbpg_Overview.Location = New System.Drawing.Point(4, 22)
         Me.tbpg_Overview.Name = "tbpg_Overview"
-        Me.tbpg_Overview.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tbpg_Overview.Padding = New System.Windows.Forms.Padding(3)
         Me.tbpg_Overview.Size = New System.Drawing.Size(566, 388)
         Me.tbpg_Overview.TabIndex = 0
         Me.tbpg_Overview.Text = "PC Overview"
@@ -421,7 +421,7 @@ Partial Class frm_Main
         Me.tbpg_Hardware.Controls.Add(Me.grp_Sys_Model)
         Me.tbpg_Hardware.Location = New System.Drawing.Point(4, 22)
         Me.tbpg_Hardware.Name = "tbpg_Hardware"
-        Me.tbpg_Hardware.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tbpg_Hardware.Padding = New System.Windows.Forms.Padding(3)
         Me.tbpg_Hardware.Size = New System.Drawing.Size(566, 388)
         Me.tbpg_Hardware.TabIndex = 1
         Me.tbpg_Hardware.Text = "Hardware"
@@ -472,6 +472,7 @@ Partial Class frm_Main
         Me.txt_Drives.TabIndex = 26
         Me.txt_Drives.Text = "PLDS DVD-RW DS8A9SH [Optical drive]" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ST500DM002-1BD142 [Hard drive] (500.11 GB) -" &
     "- drive 0, s/n S2AGM0NJ, rev KC65, SMART Status: Healthy"
+        Me.txt_Drives.WordWrap = False
         '
         'grp_Processor
         '

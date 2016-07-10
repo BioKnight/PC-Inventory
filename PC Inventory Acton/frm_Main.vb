@@ -3,7 +3,8 @@ Public Class frm_Main
     Private index_temp As Integer = 0
     Private belarc_read As New Read_Belarc_Profile
     Private output_File As String = "PC_Info.csv"
-    Private header As String = "Computer Name,Model,Serial #,Processor,Memory,boot Type,HDD Space,Operating System,OS Install Date,Application Count,Installed Virus Scan software,Last Profiled Date"
+    Private App_output_File As String = "APP_Info.csv"
+    Private header As String = "Computer Name,Domain,Model,Serial #,Processor,Memory,boot Type,HDD Space,Operating System,OS Install Date,Application Count,Installed Virus Scan software,Last Profiled Date"
 
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles Me.Load
         belarc_read.load_Directory(New DirectoryInfo("C:\Users\Randy\Dropbox (CVI)\CVI Team Folder\Acton\Weekly Reporting\Computer Profiles\Acton"))
@@ -52,9 +53,45 @@ Public Class frm_Main
         lst_Software.Items.AddRange(belarc_read.Applications(index_temp).ToArray)
         lbl_Serial.Text = belarc_read.serial(index_temp)
         lbl_Brand.Text = belarc_read.PC_Model(index_temp)
+        lbl_Domain.Text = belarc_read.domain(index_temp)
+
+        With txt_Sys_Model
+            .Text = belarc_read.full_system_model_info(index_temp)
+        End With
+
+        With txt_Processor
+            .Text = belarc_read.full_processor_info(index_temp)
+        End With
+
+        With txt_Memory
+            .Text = belarc_read.full_Memory_Info(index_temp)
+        End With
+
+        With txt_Drives
+            .Text = belarc_read.full_Drive_Info(index_temp)
+        End With
     End Sub
 
-    Private Sub lbl_Of_DoubleClick(sender As Object, e As EventArgs) Handles lbl_Of.DoubleClick
+    Private Sub lbl_Record_Count_DoubleClick(sender As Object, e As EventArgs) Handles lbl_Record_Count.DoubleClick
+        Dim over_Write As MsgBoxResult = MsgBox("This will overwrite any previous Exports!" & vbCrLf & vbCrLf & "Continue?", MsgBoxStyle.YesNo, "Important!")
+        If over_Write = MsgBoxResult.No Then Exit Sub
+        Dim save_File As System.IO.StreamWriter
+        ' Save all PC's to CSV
+        ' PC_Name,Domain,PC_Model,PC_Serial,Processor,Memory,boot_Type,HDD_Space,OS,Install_Date,App_Count,Virus_Protection,Profile_Date
+        ' Create the header.
+        save_File = My.Computer.FileSystem.OpenTextFileWriter(output_File, False)
+        save_File.WriteLine(header)
+
+        For pc_count As Integer = 0 To lbl_Record_Count.Text - 1
+            Dim pc_info As String = belarc_read.get_all_Elements(pc_count)
+            save_File.WriteLine(pc_info)
+        Next
+
+        save_File.Close()
+        MsgBox("File Saved")
+    End Sub
+
+    Private Sub lbl_cur_Record_DoubleClick(sender As Object, e As EventArgs) Handles lbl_cur_Record.DoubleClick
         ' Save Current PC to CSV
         ' PC_Name,PC_Model,PC_Serial,Processor,Memory,boot_Type,HDD_Space,OS,Install_Date,App_Count,Virus_Protection,Profile_Date
         Dim pc_info As String = belarc_read.get_all_Elements(index_temp)
@@ -86,21 +123,16 @@ Public Class frm_Main
         MsgBox("File Saved")
     End Sub
 
-    Private Sub lbl_Record_Count_DoubleClick(sender As Object, e As EventArgs) Handles lbl_Record_Count.DoubleClick
+    Private Sub txt_Software_Info_DoubleClick(sender As Object, e As EventArgs) Handles txt_Software_Info.DoubleClick
+        ' Export the Software to CSV
         Dim over_Write As MsgBoxResult = MsgBox("This will overwrite any previous Exports!" & vbCrLf & vbCrLf & "Continue?", MsgBoxStyle.YesNo, "Important!")
         If over_Write = MsgBoxResult.No Then Exit Sub
         Dim save_File As System.IO.StreamWriter
-        ' Save all PC's to CSV
-        ' PC_Name,PC_Model,PC_Serial,Processor,Memory,boot_Type,HDD_Space,OS,Install_Date,App_Count,Virus_Protection,Profile_Date
+        ' Save all PC's applications to CSV
+
         ' Create the header.
-        save_File = My.Computer.FileSystem.OpenTextFileWriter(output_File, False)
-        save_File.WriteLine(header)
-
-        For pc_count As Integer = 0 To lbl_Record_Count.Text - 1
-            Dim pc_info As String = belarc_read.get_all_Elements(pc_count)
-            save_File.WriteLine(pc_info)
-        Next
-
+        save_File = My.Computer.FileSystem.OpenTextFileWriter(App_output_File, False)
+        save_File.WriteLine(belarc_read.all_PCs_Apps)
         save_File.Close()
         MsgBox("File Saved")
     End Sub
