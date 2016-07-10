@@ -1,5 +1,5 @@
 ﻿Imports System.IO
-
+Imports System.ComponentModel
 
 
 ''' <summary>
@@ -50,8 +50,24 @@ Public Class Read_Belarc_Profile
         Next
     End Sub
 
-    Public Function get_all_Elements()
-        'Return html_list(0).get_all_Elements
+    Public Function get_all_Elements(index As Integer)
+        Dim temp_string As String = ""
+        With html_list(index)
+            temp_string &= .computer_Name & ","
+            temp_string &= .computer_model & ","
+            temp_string &= .system_serial & ","
+            temp_string &= .installed_Processor & ","
+            temp_string &= .installed_Memory & ","
+            temp_string &= .boot_type & ","
+            temp_string &= .hdd_stoage_space & ","
+            temp_string &= .operating_System & ","
+            temp_string &= .os_Installed_Date & ","
+            temp_string &= .application_count & ","
+            temp_string &= .installed_Virus_protection & ","
+            temp_string &= .last_profile_date.Replace(",", " ")
+
+        End With
+        Return temp_string
     End Function
 
     Public ReadOnly Property open_Files As Integer
@@ -60,15 +76,15 @@ Public Class Read_Belarc_Profile
         End Get
     End Property
 
-    Public ReadOnly Property Name(Optional index As Integer = 0) As String
+    Public ReadOnly Property pc_Name(Optional index As Integer = 0) As String
         Get
-            Return html_list(index).pc_name
+            Return html_list(index).computer_Name
         End Get
     End Property
 
     Public ReadOnly Property Profile_Date(Optional index As Integer = 0) As String
         Get
-            Return html_list(index).profile_date
+            Return html_list(index).last_profile_date
         End Get
     End Property
 
@@ -80,55 +96,55 @@ Public Class Read_Belarc_Profile
 
     Public ReadOnly Property Current_Login(index As Integer) As String
         Get
-            Return html_list(index).Current_Login
+            Return html_list(index).profiled_login
         End Get
     End Property
 
     Public ReadOnly Property os(index As Integer) As String
         Get
-            Return html_list(index).os
+            Return html_list(index).operating_System
         End Get
     End Property
 
     Public ReadOnly Property os_Install_Date(index As Integer) As String
         Get
-            Return html_list(index).os_Install_Date
+            Return html_list(index).os_Installed_Date
         End Get
     End Property
 
     Public ReadOnly Property boot_mode(index As Integer) As String
         Get
-            Return html_list(index).boot_Mode
+            Return html_list(index).boot_type
         End Get
     End Property
 
     Public ReadOnly Property proc(index As Integer) As String
         Get
-            Return html_list(index).proc
+            Return html_list(index).installed_Processor
         End Get
     End Property
 
     Public ReadOnly Property mem(index As Integer) As String
         Get
-            Return html_list(index).mem
+            Return html_list(index).installed_Memory
         End Get
     End Property
 
     Public ReadOnly Property hdds(index As Integer) As String
         Get
-            Return html_list(index).hdds
+            Return html_list(index).hdd_stoage_space
         End Get
     End Property
 
     Public ReadOnly Property virus_Protection(index As Integer) As String
         Get
-            Return html_list(index).virus_protection
+            Return html_list(index).installed_Virus_protection
         End Get
     End Property
 
     Public ReadOnly Property app_Count(index As Integer) As Integer
         Get
-            Return html_list(index).installed_Apps
+            Return html_list(index).application_count
         End Get
     End Property
 
@@ -140,21 +156,32 @@ Public Class Read_Belarc_Profile
 
     Public ReadOnly Property PC_Model(index) As String
         Get
-            Return html_list(index).PC_Model()
+            Return html_list(index).computer_model
         End Get
     End Property
 
     Public ReadOnly Property serial(index) As String
         Get
-            Return html_list(index).serial()
+            Return html_list(index).system_serial
         End Get
     End Property
 End Class
 
-Public Class HTML_Document_Array
-    Private doc As String
-    Private all_Apps As New List(Of String)
+' *****************************************************************************************
 
+Public Class HTML_Document_Array
+    Implements System.IDisposable
+    Private doc, PC_nme, op_sys, os_Install, boot_method, processor, memory, hd_space, virus_Soft, profiled_on As String
+    Private model, pc_Serial, profiled_user As String
+    Private all_Apps As New List(Of String)
+    ' Track whether Dispose has been called.
+    Private disposed As Boolean = False
+    ' Other managed resource this class uses.
+    Private component As Component
+    ' Pointer to an external unmanaged resource.
+    Private handle As IntPtr
+
+    ' Used to evaluate the difference between strings (html document, to static arguments)
     Private comparisons() As StringComparison = CType([Enum].GetValues(GetType(StringComparison)), StringComparison())
 
 
@@ -174,15 +201,167 @@ Public Class HTML_Document_Array
         End Get
     End Property
 
+    Public ReadOnly Property computer_Name As String
+        Get
+            Return PC_nme
+        End Get
+    End Property
+
+    Public ReadOnly Property operating_System As String
+        Get
+            Return op_sys
+        End Get
+    End Property
+
+    Public ReadOnly Property os_Installed_Date As String
+        Get
+            Return os_Install
+        End Get
+    End Property
+
+    Public ReadOnly Property boot_type As String
+        Get
+            Return boot_method
+        End Get
+    End Property
+
+    Public ReadOnly Property installed_Processor As String
+        Get
+            Return processor
+        End Get
+    End Property
+
+    Public ReadOnly Property installed_Memory As String
+        Get
+            Return memory
+        End Get
+    End Property
+
+    Public ReadOnly Property hdd_stoage_space As String
+        Get
+            Return hd_space
+        End Get
+    End Property
+
+    Public ReadOnly Property installed_Virus_protection As String
+        Get
+            Return virus_Soft
+        End Get
+    End Property
+
+    Public ReadOnly Property last_profile_date As String
+        Get
+            Return profiled_on
+        End Get
+    End Property
+
+    Public ReadOnly Property computer_model As String
+        Get
+            Return model
+        End Get
+    End Property
+
+    Public ReadOnly Property system_serial As String
+        Get
+            Return pc_Serial
+        End Get
+    End Property
+
+    Public ReadOnly Property application_count As Integer
+        Get
+            Return all_Apps.Count
+        End Get
+    End Property
+
+    Public ReadOnly Property profiled_login As String
+        Get
+            Return profiled_user
+        End Get
+    End Property
+
+
+    ''' <summary>
+    ''' Create a new instance of this class.
+    ''' </summary>
+    ''' <param name="html_Doc">The HTML document created by Belarc to read.</param>
     Sub New(html_Doc As FileInfo)
+        Me.handle = handle
 
         Using reader As StreamReader = New StreamReader(html_Doc.FullName)
             doc = reader.ReadToEnd
         End Using
-
+        pc_name()
+        Current_Login()
+        os()
+        os_Install_Date()
+        boot_Mode()
+        proc()
+        mem()
+        hdds()
+        virus_protection()
+        installed_Apps()
+        profile_date()
+        PC_Model()
+        serial()
     End Sub
 
-    Public Function pc_name() As String
+    Public Overloads Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
+
+    ''' <summary>
+    ''' executes in two distinct scenarios. 
+    ''' If disposing equals true, the method has been called directly or indirectly by a user's code. 
+    ''' Managed and unmanaged resources can be disposed. If disposing equals false, the method has been called by the 
+    ''' runtime from inside the finalizer and you should not reference other objects.
+    ''' </summary>
+    ''' <param name="disposing">True if called by user code.</param>
+    Protected Overridable Overloads Sub Dispose(ByVal disposing As Boolean)
+        ' Check to see if Dispose has already been called.
+        If Not Me.disposed Then
+            ' If disposing equals true, dispose all managed 
+            ' and unmanaged resources.
+            If disposing Then
+                ' Dispose managed resources.
+                component.Dispose()
+            End If
+
+            ' Call the appropriate methods to clean up 
+            ' unmanaged resources here.
+            ' If disposing is false, 
+            ' only the following code is executed.
+            CloseHandle(handle)
+            handle = IntPtr.Zero
+
+            ' Note disposing has been done.
+            disposed = True
+
+        End If
+    End Sub
+
+
+    ' ### Private section ###
+
+    ' Use interop to call the method necessary  
+    ' to clean up the unmanaged resource.
+    <System.Runtime.InteropServices.DllImport("Kernel32")>
+    Private Shared Function CloseHandle(ByVal handle As IntPtr) As [Boolean]
+    End Function
+
+    ' This finalizer will run only if the Dispose method 
+    ' does not get called.
+    ' It gives your base class the opportunity to finalize.
+    ' Do not provide finalize methods in types derived from this class.
+    Protected Overrides Sub Finalize()
+        ' Do not re-create Dispose clean-up code here.
+        ' Calling Dispose(false) is optimal in terms of
+        ' readability and maintainability.
+        Dispose(False)
+        MyBase.Finalize()
+    End Sub
+
+    Private Sub pc_name()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Computer Name:", comparisons(5)))
@@ -190,26 +369,26 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Substring(0, s.IndexOf("(", comparisons(5)))      ' This could cause an issue if the ( is missing.
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            Return s
+            PC_nme = s
         Catch ex As Exception
-            Return ""
+            PC_nme = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function Current_Login() As String
+    Private Sub Current_Login()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Windows Logon:", comparisons(5)))
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            Return s
+            profiled_user = s
         Catch ex As Exception
-            Return ""
+            profiled_user = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function os() As String
+    Private Sub os()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Operating System", comparisons(5)))
@@ -217,13 +396,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            op_sys = s
         Catch ex As Exception
-            Return ""
+            op_sys = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function os_Install_Date() As String
+    Private Sub os_Install_Date()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Installed:", comparisons(5)))
@@ -231,13 +410,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            os_Install = s
         Catch ex As Exception
-            Return ""
+            os_Install = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function boot_Mode() As String
+    Private Sub boot_Mode()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Boot Mode:", comparisons(5)))
@@ -245,13 +424,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)) - 1)
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            boot_method = s
         Catch ex As Exception
-            Return ""
+            boot_method = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function proc() As String
+    Private Sub proc()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Processor", comparisons(5)))
@@ -259,13 +438,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            processor = s
         Catch ex As Exception
-            Return ""
+            processor = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function mem() As String
+    Private Sub mem()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Memory Modules <", comparisons(5)))
@@ -273,13 +452,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            memory = s
         Catch ex As Exception
-            Return ""
+            memory = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function hdds() As String
+    Private Sub hdds()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Drives", comparisons(5)))
@@ -287,13 +466,13 @@ Public Class HTML_Document_Array
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
             s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            hd_space = s
         Catch ex As Exception
-            Return ""
+            hd_space = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function virus_protection() As String
+    Private Sub virus_protection()
         Try
             Dim Temp_String As String = doc.Substring(doc.IndexOf("[Virus Protection]", comparisons(5)))
             Temp_String = Temp_String.Substring(Temp_String.IndexOf("<B>", comparisons(5)) + 3)
@@ -301,18 +480,17 @@ Public Class HTML_Document_Array
             Temp_String = Temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
             Temp_String = Temp_String.Replace("</b>", " ").Replace("</B>", " ").Trim
             Temp_String = Temp_String.Replace("   ", " ").Replace("  ", " ").Trim
-            Return Temp_String
+            virus_Soft = Temp_String
         Catch ex As Exception
-            Return ""
+            virus_Soft = ex.Message
         End Try
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
     ''' <returns>Application count</returns>
-    Public Function installed_Apps() As Integer
-        If all_Apps.Count > 0 Then Return all_Apps.Count
+    Private Sub installed_Apps()
         Try
             ' Take out the part with the application names, and clean up some of the HTML code.
             Dim Temp_String As String = doc.Substring(doc.IndexOf("[Software Versions]", comparisons(5))) ' Create a new string starting at the applications section of the HTML code.
@@ -336,29 +514,25 @@ Public Class HTML_Document_Array
                     all_Apps.Add(temp_Line) ' Add the application title to the list.
                 End If
             Next
-
-            Return all_Apps.Count   ' Return the final Count.
         Catch ex As Exception
-            Return -1   ' If we get an error return -1 so we know there was an error
+            all_Apps.Add(ex.Message)
         End Try
+    End Sub
 
-        Return 9999     ' If we get here return a ridiculous number so we know something went wrong.
-    End Function
-
-    Public Function profile_date() As String
+    Private Sub profile_date()
         Try
             Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
             s = s.Substring(s.IndexOf("Profile Date:", comparisons(5)))
             s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
             s = s.Substring(0, s.IndexOf("<", comparisons(5)))
             s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            Return s
+            profiled_on = s
         Catch ex As Exception
-            Return ""
+            profiled_on = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function PC_Model() As String
+    Private Sub PC_Model()
         Try
             Dim temp_String As String = doc.Substring(doc.IndexOf("[System Model]", comparisons(5)))
             temp_String = temp_String.Remove(0, 10)
@@ -366,23 +540,23 @@ Public Class HTML_Document_Array
             temp_String = temp_String.Substring(temp_String.IndexOf("<TD>", comparisons(5)) + 4)
             temp_String = temp_String.Substring(0, temp_String.IndexOf("<", comparisons(5)))
             temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
-            Return temp_String
+            model = temp_String
         Catch ex As Exception
-            Return ""
+            model = ex.Message
         End Try
-    End Function
+    End Sub
 
-    Public Function serial() As String
+    Private Sub serial()
         Try
             Dim temp_String As String = doc.Substring(doc.IndexOf("[System Model]", comparisons(5)))
             temp_String = temp_String.Substring(temp_String.IndexOf("Serial Number", comparisons(5)) + "Serial Number".Length)
             temp_String = temp_String.Replace(":", "")
             temp_String = temp_String.Substring(0, temp_String.IndexOf("<", comparisons(5)))
             temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
-            Return temp_String
+            pc_Serial = temp_String
         Catch ex As Exception
-            Return ""
+            pc_Serial = ex.Message
         End Try
-    End Function
+    End Sub
 
 End Class
