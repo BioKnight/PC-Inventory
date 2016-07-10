@@ -47,7 +47,13 @@ Public Class frm_Main
         lbl_Software_Count.Text = belarc_read.app_Count(index_temp)
         lst_Software.Items.Clear()
         lst_Software.Items.AddRange(belarc_read.Applications(index_temp).ToArray)
+        lbl_Serial.Text = belarc_read.serial(index_temp)
+        lbl_Brand.Text = belarc_read.PC_Model(index_temp)
     End Sub
 
+    Private Sub lbl_Of_DoubleClick(sender As Object, e As EventArgs) Handles lbl_Of.DoubleClick
+        ' Save Current PC to CSV
+        ' MANUFACTURER,MODEL,Serial,PROCESSOR,RAM,HDD,OS,Win Key
 
+    End Sub
 End Class

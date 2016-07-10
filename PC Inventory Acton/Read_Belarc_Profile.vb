@@ -50,10 +50,6 @@ Public Class Read_Belarc_Profile
         Next
     End Sub
 
-    Public Function get_element() As String
-        Return html_list(0).get_Element()
-    End Function
-
     Public Function get_all_Elements()
         'Return html_list(0).get_all_Elements
     End Function
@@ -141,6 +137,18 @@ Public Class Read_Belarc_Profile
             Return html_list(index).Applications
         End Get
     End Property
+
+    Public ReadOnly Property PC_Model(index) As String
+        Get
+            Return html_list(index).PC_Model()
+        End Get
+    End Property
+
+    Public ReadOnly Property serial(index) As String
+        Get
+            Return html_list(index).serial()
+        End Get
+    End Property
 End Class
 
 Public Class HTML_Document_Array
@@ -173,10 +181,6 @@ Public Class HTML_Document_Array
         End Using
 
     End Sub
-
-    Public Function get_Element() As String
-        Return doc
-    End Function
 
     Public Function pc_name() As String
         Try
@@ -289,26 +293,20 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
-    ' ************* This functions needs to be re-worked as it failes on some of the files.
     Public Function virus_protection() As String
         Try
-            Dim s As String = doc.Substring(doc.IndexOf("<body>", comparisons(5)))
-            s = s.Substring(s.IndexOf("<CAPTION>						Virus Protection", comparisons(5)))
-            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
-            s = s.Substring(s.IndexOf("<TD>", comparisons(5)) + 4)
-            s = s.Substring(0, s.IndexOf("</TD>", comparisons(5)))
-            s = s.Replace(vbCr, "").Replace(vbLf, "").Trim
-            s = s.Replace("<B>", " ").Replace("</B>", " ").Trim
-            s = s.Replace("   ", " ").Replace("  ", " ").Trim
-            Return s
+            Dim Temp_String As String = doc.Substring(doc.IndexOf("[Virus Protection]", comparisons(5)))
+            Temp_String = Temp_String.Substring(Temp_String.IndexOf("<B>", comparisons(5)) + 3)
+            Temp_String = Temp_String.Substring(0, Temp_String.IndexOf("</TD>", comparisons(5)))
+            Temp_String = Temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            Temp_String = Temp_String.Replace("</b>", " ").Replace("</B>", " ").Trim
+            Temp_String = Temp_String.Replace("   ", " ").Replace("  ", " ").Trim
+            Return Temp_String
         Catch ex As Exception
             Return ""
         End Try
     End Function
 
-    ' *************  This function needs to be completely re-written.  It is to dependent on the HTML files being formated
-    ' *************  The same, AND they are far from.
-    ' #############  I think I have corrected the issue mentioned above.
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
@@ -360,6 +358,31 @@ Public Class HTML_Document_Array
         End Try
     End Function
 
+    Public Function PC_Model() As String
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("[System Model]", comparisons(5)))
+            temp_String = temp_String.Remove(0, 10)
+            temp_String = temp_String.Substring(temp_String.IndexOf("System Model", comparisons(5)))
+            temp_String = temp_String.Substring(temp_String.IndexOf("<TD>", comparisons(5)) + 4)
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("<", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            Return temp_String
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
 
+    Public Function serial() As String
+        Try
+            Dim temp_String As String = doc.Substring(doc.IndexOf("[System Model]", comparisons(5)))
+            temp_String = temp_String.Substring(temp_String.IndexOf("Serial Number", comparisons(5)) + "Serial Number".Length)
+            temp_String = temp_String.Replace(":", "")
+            temp_String = temp_String.Substring(0, temp_String.IndexOf("<", comparisons(5)))
+            temp_String = temp_String.Replace(vbCr, "").Replace(vbLf, "").Trim
+            Return temp_String
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
 
 End Class

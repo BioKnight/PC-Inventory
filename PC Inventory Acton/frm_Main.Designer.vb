@@ -39,7 +39,7 @@ Partial Class frm_Main
         Me.lbl_Desc_Processor = New System.Windows.Forms.Label()
         Me.lbl_Boot_Mode = New System.Windows.Forms.Label()
         Me.lbl_Desc_Boot_Mode = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lbl_Brand = New System.Windows.Forms.Label()
         Me.lbl_Desc_Brand = New System.Windows.Forms.Label()
         Me.lbl_Install_Date = New System.Windows.Forms.Label()
         Me.lbl_Desc_Install_Date = New System.Windows.Forms.Label()
@@ -80,6 +80,8 @@ Partial Class frm_Main
         Me.lbl_cur_Record = New System.Windows.Forms.Label()
         Me.lbl_Of = New System.Windows.Forms.Label()
         Me.lbl_Record_Count = New System.Windows.Forms.Label()
+        Me.lbl_Desc_Serial = New System.Windows.Forms.Label()
+        Me.lbl_Serial = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tbpg_Overview.SuspendLayout()
         Me.tbpg_Hardware.SuspendLayout()
@@ -100,7 +102,7 @@ Partial Class frm_Main
         Me.TabControl1.Controls.Add(Me.tbpg_Software)
         Me.TabControl1.Controls.Add(Me.tbpg_Users)
         Me.TabControl1.Location = New System.Drawing.Point(13, 15)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(765, 510)
@@ -108,6 +110,8 @@ Partial Class frm_Main
         '
         'tbpg_Overview
         '
+        Me.tbpg_Overview.Controls.Add(Me.lbl_Serial)
+        Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_Serial)
         Me.tbpg_Overview.Controls.Add(Me.lbl_File_Location)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_File_Loaction)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Software_Count)
@@ -122,7 +126,7 @@ Partial Class frm_Main
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_Processor)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Boot_Mode)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_Boot_Mode)
-        Me.tbpg_Overview.Controls.Add(Me.Label2)
+        Me.tbpg_Overview.Controls.Add(Me.lbl_Brand)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_Brand)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Install_Date)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_Install_Date)
@@ -137,9 +141,9 @@ Partial Class frm_Main
         Me.tbpg_Overview.Controls.Add(Me.lbl_PC_Name)
         Me.tbpg_Overview.Controls.Add(Me.lbl_Desc_PC_Name)
         Me.tbpg_Overview.Location = New System.Drawing.Point(4, 25)
-        Me.tbpg_Overview.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Overview.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpg_Overview.Name = "tbpg_Overview"
-        Me.tbpg_Overview.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Overview.Padding = New System.Windows.Forms.Padding(4)
         Me.tbpg_Overview.Size = New System.Drawing.Size(757, 481)
         Me.tbpg_Overview.TabIndex = 0
         Me.tbpg_Overview.Text = "PC Overview"
@@ -285,15 +289,15 @@ Partial Class frm_Main
         Me.lbl_Desc_Boot_Mode.TabIndex = 20
         Me.lbl_Desc_Boot_Mode.Text = "Boot Mode:"
         '
-        'Label2
+        'lbl_Brand
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(412, 15)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(16, 17)
-        Me.Label2.TabIndex = 19
-        Me.Label2.Text = "0"
+        Me.lbl_Brand.AutoSize = True
+        Me.lbl_Brand.Location = New System.Drawing.Point(412, 15)
+        Me.lbl_Brand.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_Brand.Name = "lbl_Brand"
+        Me.lbl_Brand.Size = New System.Drawing.Size(16, 17)
+        Me.lbl_Brand.TabIndex = 19
+        Me.lbl_Brand.Text = "0"
         '
         'lbl_Desc_Brand
         '
@@ -426,9 +430,9 @@ Partial Class frm_Main
         Me.tbpg_Hardware.Controls.Add(Me.grp_Processor)
         Me.tbpg_Hardware.Controls.Add(Me.grp_Sys_Model)
         Me.tbpg_Hardware.Location = New System.Drawing.Point(4, 25)
-        Me.tbpg_Hardware.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Hardware.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpg_Hardware.Name = "tbpg_Hardware"
-        Me.tbpg_Hardware.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Hardware.Padding = New System.Windows.Forms.Padding(4)
         Me.tbpg_Hardware.Size = New System.Drawing.Size(757, 481)
         Me.tbpg_Hardware.TabIndex = 1
         Me.tbpg_Hardware.Text = "Hardware"
@@ -438,9 +442,9 @@ Partial Class frm_Main
         '
         Me.grp_Memory.Controls.Add(Me.txt_Memory)
         Me.grp_Memory.Location = New System.Drawing.Point(8, 169)
-        Me.grp_Memory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Memory.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Memory.Name = "grp_Memory"
-        Me.grp_Memory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Memory.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Memory.Size = New System.Drawing.Size(736, 108)
         Me.grp_Memory.TabIndex = 28
         Me.grp_Memory.TabStop = False
@@ -451,7 +455,7 @@ Partial Class frm_Main
         Me.txt_Memory.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Memory.Cursor = System.Windows.Forms.Cursors.No
         Me.txt_Memory.Location = New System.Drawing.Point(28, 23)
-        Me.txt_Memory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Memory.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Memory.Multiline = True
         Me.txt_Memory.Name = "txt_Memory"
         Me.txt_Memory.ReadOnly = True
@@ -464,9 +468,9 @@ Partial Class frm_Main
         '
         Me.grp_Drives.Controls.Add(Me.txt_Drives)
         Me.grp_Drives.Location = New System.Drawing.Point(8, 284)
-        Me.grp_Drives.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Drives.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Drives.Name = "grp_Drives"
-        Me.grp_Drives.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Drives.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Drives.Size = New System.Drawing.Size(736, 170)
         Me.grp_Drives.TabIndex = 27
         Me.grp_Drives.TabStop = False
@@ -477,7 +481,7 @@ Partial Class frm_Main
         Me.txt_Drives.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Drives.Cursor = System.Windows.Forms.Cursors.No
         Me.txt_Drives.Location = New System.Drawing.Point(28, 23)
-        Me.txt_Drives.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Drives.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Drives.Multiline = True
         Me.txt_Drives.Name = "txt_Drives"
         Me.txt_Drives.ReadOnly = True
@@ -490,9 +494,9 @@ Partial Class frm_Main
         '
         Me.grp_Processor.Controls.Add(Me.txt_Processor)
         Me.grp_Processor.Location = New System.Drawing.Point(387, 7)
-        Me.grp_Processor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Processor.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Processor.Name = "grp_Processor"
-        Me.grp_Processor.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Processor.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Processor.Size = New System.Drawing.Size(357, 154)
         Me.grp_Processor.TabIndex = 1
         Me.grp_Processor.TabStop = False
@@ -503,7 +507,7 @@ Partial Class frm_Main
         Me.txt_Processor.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Processor.Cursor = System.Windows.Forms.Cursors.No
         Me.txt_Processor.Location = New System.Drawing.Point(28, 23)
-        Me.txt_Processor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Processor.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Processor.Multiline = True
         Me.txt_Processor.Name = "txt_Processor"
         Me.txt_Processor.ReadOnly = True
@@ -516,9 +520,9 @@ Partial Class frm_Main
         '
         Me.grp_Sys_Model.Controls.Add(Me.txt_Sys_Model)
         Me.grp_Sys_Model.Location = New System.Drawing.Point(8, 7)
-        Me.grp_Sys_Model.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Sys_Model.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Sys_Model.Name = "grp_Sys_Model"
-        Me.grp_Sys_Model.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Sys_Model.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Sys_Model.Size = New System.Drawing.Size(357, 154)
         Me.grp_Sys_Model.TabIndex = 26
         Me.grp_Sys_Model.TabStop = False
@@ -529,7 +533,7 @@ Partial Class frm_Main
         Me.txt_Sys_Model.BackColor = System.Drawing.Color.White
         Me.txt_Sys_Model.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Sys_Model.Location = New System.Drawing.Point(28, 23)
-        Me.txt_Sys_Model.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Sys_Model.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Sys_Model.Multiline = True
         Me.txt_Sys_Model.Name = "txt_Sys_Model"
         Me.txt_Sys_Model.ReadOnly = True
@@ -543,7 +547,7 @@ Partial Class frm_Main
         Me.tbpg_Software.Controls.Add(Me.lst_Software)
         Me.tbpg_Software.Controls.Add(Me.txt_Software_Info)
         Me.tbpg_Software.Location = New System.Drawing.Point(4, 25)
-        Me.tbpg_Software.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Software.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpg_Software.Name = "tbpg_Software"
         Me.tbpg_Software.Size = New System.Drawing.Size(757, 481)
         Me.tbpg_Software.TabIndex = 2
@@ -559,7 +563,7 @@ Partial Class frm_Main
                 "51", "Intel - AppUp(SM) version 3.6.1.38693", "Intel - BlueTooth High Speed version 15.2.0.0 (64-bit)", "Intel - Bluetooth LE Services Control Program version 2.6.0.260 (64-bit)", "Intel - Capability Licensing Service Interface version 1,23,216,0 (64-bit)", "Intel - Centrino Wireless Bluetooth High Speed version 15, 2, 0, 0 (64-bit)", "Intel - Common User Interface version 8.15.10.2932 (64-bit)", "Intel - Control Center version 1.2.1.1007", "Intel - Dynamic Application Loader Host Interface version 8.0.0.1351", "Intel - IAStorDataSvc version 11.0.0.1032", "Intel - IAStorIcon version 11.0.0.1032", "Intel - IAStorUI version 11.0.0.1032", "Intel - IntelCpHeciSvc Executable version 1,0,1,14", "Intel - Management and Security Application User Notification Service version 8.0" &
                 ".0.1351", "Intel - Management and Security Status version 8.0.0.1351", "Intel - PIconStartup version 8.0.0.1351", "Intel - PROSet/Wireless version 15, 2, 0, 0 (64-bit)", "Intel - QuickLinker version 3.6.1.33057.10", "Intel - run_uninstaller version 3.6.1.33057.10", "Intel - Services Manager version 1.14.1.36458", "Intel - USB 3.0 Monitor version 1.0.0.120", "Lenovo - AIO version 1.0.0.12", "Lenovo - AppShopLauncher Application version 1, 0, 0, 0", "Lenovo - Desktop BIOS version 1.0.0.6", "Lenovo - Message Center Plus version 3.1.0001.00", "Lenovo - Power Manager version 1.0.0.1", "Lenovo - UserGuide version 1.0.0006.00", "Lenovo Group - Power Manager version 1, 0, 0, 2", "Lenovo Group - Power Manager version 1.0.0.0", "Lenovo Group - ThinkVantage AutoLock version 1.51.0.0", "Lenovo Group - ThinkVantage Communications Utility version 3.0.30.0", "Logitech - SetPoint version 5.90.41 (64-bit)", "Logitech - SetPoint version 6.67.83 (64-bit)", "Logitech - Unifying Software version 2.10.37 (64-bit)", "Macrovision Europe - FLEXnet Publisher (32 bit) version 11.5.0.0", "Microsoft - .NET Framework version 2.0.50727.5483 (32/64-bit)", "Microsoft - .NET Framework version 3.0.6920.5011 (64-bit)", "Microsoft - .NET Framework version 4.0.41210.0 (32/64-bit)", "Microsoft - .NET Framework version 4.6.1055.0 (32/64-bit)", "Microsoft - Clip Organizer version 14.0.7107.5000", "Microsoft - CoReXT version 7.250.4311.0 (64-bit)", "Microsoft - Internet Explorer version 11.00.9600.18347 (32/64-bit)", "Microsoft - Movie Maker version 16.4.3505.0912", "Microsoft - Office 2010 version 14.0.7170.5000 (32/64-bit)", "Microsoft - Office InfoPath version 14.0.7162.5000 (32/64-bit)", "Microsoft - Office Source Engine version 14.0.4730.1010", "Microsoft - Office version 14.0.0370.400 (64-bit)", "Microsoft - OneNote version 14.0.7162.5000", "Microsoft - Outlook version 14.0.7169.5000", "Microsoft - Photo Gallery version 16.4.3505.0912", "Microsoft - SelfCert version 14.0.7011.1000", "Microsoft - Silverlight Plug-In version 5.1.50428.0 (32/64-bit)", "Microsoft - Silverlight version 5.1.50428.0 (32/64-bit)", "Microsoft - Touch Pack for Windows 7 version 1,0,40903,00", "Microsoft - Touch Pack for Windows 7 version 1.0.40517.00", "Microsoft - Windows Installer - Unicode version 5.0.7600.16385 (32/64-bit)", "Microsoft - Windows Live Mail version 16.4.3505.0912", "Microsoft - Windows Live Messenger version 16.4.3505.0912", "Microsoft - Windows Live version 16.4.6013.0910", "Microsoft - Windows Live Writer version 16.4.3505.912", "Microsoft - Windows Media Player version 12.0.7600.16385 (32/64-bit)", "Microsoft - Windows Script Host version 5.8.7600.16385 (32/64-bit)", "Microsoft - Windows Search version 7.00.7600.16385 (32/64-bit)", "Motorola Solutions - Intel PROSet\Wireless Bluetooth version 3.0.1302.0308", "No Company Name - Create Recovery Media ", "No Company Name - Lenovo System Update Service version 5.7.0.29", "No Company Name - Lenovo System Update version 5, 7, 0, 29", "No Company Name - NA1Messenger version 19.0.24.0", "No Company Name - Power Manager version 1, 0, 0, 1", "No Company Name - Wireless PAN DHCP and DNS Server version 15, 2, 0, 0 (64-bit)", "Oracle - Java Platform SE 8 U91 version 8.0.910.14", "Oracle - Java Platform SE 8 version 8.0.910.14", "Oracle - Java Platform SE Auto Updater version 2.8.91.14", "Realtek Semiconductor - HD Audio Background Process version 1.0.0.83 (64-bit)", "Realtek Semiconductor - HD Audio Manager version 1, 0, 0, 766 (64-bit)", "Trend Micro - AEGIS version 2.974 (64-bit)", "Trend Micro - Network Security Components version 5.82 (64-bit)", "Trend Micro - OfficeScan Common Client version 19.1 (64-bit)", "Trend Micro - WFBSS version 5.9", "Ulead Systems - ULCDRSvr version 1, 0, 0, 5", "United Parcel Service - WSTDMessaging MFC Application version 19.0.11.0", "United Parcel Service - wstdSupportUtility version 19.0.12.1", "UPS - WorldShip - wstdPldReminder Application version 19, 0, 24, 0", "UPS - WorldShip Shipping System version 19, 0, 24, 0", "UPS - WorldShip Updater version 19.0.24.0"})
         Me.lst_Software.Location = New System.Drawing.Point(4, 4)
-        Me.lst_Software.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lst_Software.Margin = New System.Windows.Forms.Padding(4)
         Me.lst_Software.Name = "lst_Software"
         Me.lst_Software.Size = New System.Drawing.Size(745, 340)
         Me.lst_Software.Sorted = True
@@ -569,7 +573,7 @@ Partial Class frm_Main
         '
         Me.txt_Software_Info.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Software_Info.Location = New System.Drawing.Point(4, 353)
-        Me.txt_Software_Info.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Software_Info.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Software_Info.Multiline = True
         Me.txt_Software_Info.Name = "txt_Software_Info"
         Me.txt_Software_Info.Size = New System.Drawing.Size(747, 121)
@@ -582,7 +586,7 @@ Partial Class frm_Main
         Me.tbpg_Users.Controls.Add(Me.grp_Domain)
         Me.tbpg_Users.Controls.Add(Me.grp_Local)
         Me.tbpg_Users.Location = New System.Drawing.Point(4, 25)
-        Me.tbpg_Users.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpg_Users.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpg_Users.Name = "tbpg_Users"
         Me.tbpg_Users.Size = New System.Drawing.Size(757, 481)
         Me.tbpg_Users.TabIndex = 3
@@ -593,7 +597,7 @@ Partial Class frm_Main
         '
         Me.txt_Key.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_Key.Location = New System.Drawing.Point(12, 442)
-        Me.txt_Key.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Key.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Key.Multiline = True
         Me.txt_Key.Name = "txt_Key"
         Me.txt_Key.Size = New System.Drawing.Size(728, 25)
@@ -605,9 +609,9 @@ Partial Class frm_Main
         Me.grp_Domain.Controls.Add(Me.TextBox4)
         Me.grp_Domain.Controls.Add(Me.lst_Domain_Users)
         Me.grp_Domain.Location = New System.Drawing.Point(380, 4)
-        Me.grp_Domain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Domain.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Domain.Name = "grp_Domain"
-        Me.grp_Domain.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Domain.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Domain.Size = New System.Drawing.Size(368, 431)
         Me.grp_Domain.TabIndex = 1
         Me.grp_Domain.TabStop = False
@@ -617,7 +621,7 @@ Partial Class frm_Main
         '
         Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox4.Location = New System.Drawing.Point(7, 321)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox4.Multiline = True
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
@@ -632,7 +636,7 @@ Partial Class frm_Main
         Me.lst_Domain_Users.ItemHeight = 16
         Me.lst_Domain_Users.Items.AddRange(New Object() {"acoyne", "cfowler", "cleverfish", "crhoades", "cviadmin", "jmctague", "jyoung", "lneville", "msebolka", "myohey"})
         Me.lst_Domain_Users.Location = New System.Drawing.Point(7, 18)
-        Me.lst_Domain_Users.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lst_Domain_Users.Margin = New System.Windows.Forms.Padding(4)
         Me.lst_Domain_Users.MultiColumn = True
         Me.lst_Domain_Users.Name = "lst_Domain_Users"
         Me.lst_Domain_Users.Size = New System.Drawing.Size(351, 290)
@@ -644,9 +648,9 @@ Partial Class frm_Main
         Me.grp_Local.Controls.Add(Me.txt_Local_User_Info)
         Me.grp_Local.Controls.Add(Me.lst_Local_Users)
         Me.grp_Local.Location = New System.Drawing.Point(4, 4)
-        Me.grp_Local.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Local.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_Local.Name = "grp_Local"
-        Me.grp_Local.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_Local.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_Local.Size = New System.Drawing.Size(368, 431)
         Me.grp_Local.TabIndex = 0
         Me.grp_Local.TabStop = False
@@ -656,7 +660,7 @@ Partial Class frm_Main
         '
         Me.txt_Local_User_Info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txt_Local_User_Info.Location = New System.Drawing.Point(7, 321)
-        Me.txt_Local_User_Info.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_Local_User_Info.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_Local_User_Info.Multiline = True
         Me.txt_Local_User_Info.Name = "txt_Local_User_Info"
         Me.txt_Local_User_Info.ReadOnly = True
@@ -671,7 +675,7 @@ Partial Class frm_Main
         Me.lst_Local_Users.ItemHeight = 16
         Me.lst_Local_Users.Items.AddRange(New Object() {"Administrator", "cleverfish"})
         Me.lst_Local_Users.Location = New System.Drawing.Point(7, 18)
-        Me.lst_Local_Users.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lst_Local_Users.Margin = New System.Windows.Forms.Padding(4)
         Me.lst_Local_Users.MultiColumn = True
         Me.lst_Local_Users.Name = "lst_Local_Users"
         Me.lst_Local_Users.Size = New System.Drawing.Size(351, 290)
@@ -681,7 +685,7 @@ Partial Class frm_Main
         'btn_First
         '
         Me.btn_First.Location = New System.Drawing.Point(16, 532)
-        Me.btn_First.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_First.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_First.Name = "btn_First"
         Me.btn_First.Size = New System.Drawing.Size(100, 28)
         Me.btn_First.TabIndex = 0
@@ -691,7 +695,7 @@ Partial Class frm_Main
         'btn_Previous
         '
         Me.btn_Previous.Location = New System.Drawing.Point(124, 532)
-        Me.btn_Previous.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_Previous.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Previous.Name = "btn_Previous"
         Me.btn_Previous.Size = New System.Drawing.Size(100, 28)
         Me.btn_Previous.TabIndex = 1
@@ -701,7 +705,7 @@ Partial Class frm_Main
         'btn_Last
         '
         Me.btn_Last.Location = New System.Drawing.Point(673, 532)
-        Me.btn_Last.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_Last.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Last.Name = "btn_Last"
         Me.btn_Last.Size = New System.Drawing.Size(100, 28)
         Me.btn_Last.TabIndex = 2
@@ -711,7 +715,7 @@ Partial Class frm_Main
         'btn_Next
         '
         Me.btn_Next.Location = New System.Drawing.Point(565, 532)
-        Me.btn_Next.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_Next.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Next.Name = "btn_Next"
         Me.btn_Next.Size = New System.Drawing.Size(100, 28)
         Me.btn_Next.TabIndex = 3
@@ -748,6 +752,24 @@ Partial Class frm_Main
         Me.lbl_Record_Count.Text = "99999999999"
         Me.lbl_Record_Count.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'lbl_Desc_Serial
+        '
+        Me.lbl_Desc_Serial.AutoSize = True
+        Me.lbl_Desc_Serial.Location = New System.Drawing.Point(8, 303)
+        Me.lbl_Desc_Serial.Name = "lbl_Desc_Serial"
+        Me.lbl_Desc_Serial.Size = New System.Drawing.Size(52, 17)
+        Me.lbl_Desc_Serial.TabIndex = 34
+        Me.lbl_Desc_Serial.Text = "Serial: "
+        '
+        'lbl_Serial
+        '
+        Me.lbl_Serial.AutoSize = True
+        Me.lbl_Serial.Location = New System.Drawing.Point(132, 303)
+        Me.lbl_Serial.Name = "lbl_Serial"
+        Me.lbl_Serial.Size = New System.Drawing.Size(16, 17)
+        Me.lbl_Serial.TabIndex = 35
+        Me.lbl_Serial.Text = "0"
+        '
         'frm_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -761,7 +783,7 @@ Partial Class frm_Main
         Me.Controls.Add(Me.btn_First)
         Me.Controls.Add(Me.btn_Previous)
         Me.Controls.Add(Me.TabControl1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_Main"
         Me.Text = "PC Inventory"
         Me.TabControl1.ResumeLayout(False)
@@ -806,7 +828,7 @@ Partial Class frm_Main
     Friend WithEvents lbl_Updated As Label
     Friend WithEvents lbl_Desc_Updated As Label
     Friend WithEvents lbl_PC_Name As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lbl_Brand As Label
     Friend WithEvents lbl_Install_Date As Label
     Friend WithEvents lbl_OS As Label
     Private WithEvents lbl_Desc_Domain As Label
@@ -846,4 +868,6 @@ Partial Class frm_Main
     Friend WithEvents lst_Software As ListBox
     Friend WithEvents lbl_File_Location As Label
     Friend WithEvents lbl_Desc_File_Loaction As Label
+    Friend WithEvents lbl_Serial As Label
+    Friend WithEvents lbl_Desc_Serial As Label
 End Class
