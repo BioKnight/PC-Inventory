@@ -205,10 +205,11 @@ Public Class Read_Belarc_Profile
         End Get
     End Property
 
+
+    ' ******** Need to find a better way to do this.  This array is dangerous! ********
     Public Function all_PCs_Apps() As String
         ' pc1 name,     pc2 name,       pc3 name
         ' pc1 Software, pc2 Software,   pc3 Software
-        Dim pcs(html_list.Count) as string
         Dim pcs_Apps(html_list.Count - 1, 500) As String
         Dim cur_pc As Integer = 0
         Dim cur_app As Integer = 0
@@ -227,7 +228,6 @@ Public Class Read_Belarc_Profile
             cur_app = 0
             cur_pc += 1
         Next
-        Array.Sort(pcs_Apps)
 
         ' Build the Output
 
@@ -623,9 +623,11 @@ Public Class HTML_Document_Array
                     Dim temp_Line As String = line.Remove(0, line.LastIndexOf(";") + 1) ' Remove the unwanted section at the beginning of the line.
                     temp_Line = temp_Line.Replace("   ", " ").Trim() ' remove large spaces, beginning, and trailing spaces.
                     If temp_Line = "" Then Continue For ' Do not add blank lines.
+                    If all_Apps.Contains(temp_Line) Then Continue For
                     all_Apps.Add(temp_Line) ' Add the application title to the list.
                 End If
             Next
+            all_Apps.Sort()
         Catch ex As Exception
             all_Apps.Add(ex.Message)
         End Try
