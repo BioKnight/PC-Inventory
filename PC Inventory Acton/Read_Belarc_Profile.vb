@@ -221,6 +221,9 @@ Public Class Read_Belarc_Profile
             pcs_Apps(cur_pc, cur_app) = pc.computer_Name
             cur_app += 1
             For Each app As String In pc.Applications
+                ' There is an issue here that is causing "COMPANYVERS_NAME - PRODUCTVERS_NAME" in output.
+                ' Probably in the 'Read'
+                If app = "" Then Continue For
                 pcs_Apps(cur_pc, cur_app) = app
                 cur_app += 1
             Next
@@ -237,6 +240,17 @@ Public Class Read_Belarc_Profile
         output_string &= vbCrLf
         For y As Integer = 0 To max_app - 1
             For x As Integer = 0 To cur_pc - 1
+
+
+
+                If Not pcs_Apps(x, y) = Nothing Then
+                    ' Kill "   "
+                    pcs_Apps(x, y) = pcs_Apps(x, y).Replace("   ", " ")
+                    ' Kill "No Company Name -"
+                    If pcs_Apps(x, y).Contains("No Company Name - ") Then
+                        pcs_Apps(x, y) = pcs_Apps(x, y).Replace("No Company Name - ", "")
+                    End If
+                End If
                 output_string &= pcs_Apps(x, y) & ","
             Next
             output_string &= vbCrLf
