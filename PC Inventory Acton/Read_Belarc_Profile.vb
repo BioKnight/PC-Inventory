@@ -233,15 +233,12 @@ Public Class Read_Belarc_Profile
         Next
 
         ' Build the Output
-
-        For x As Integer = 0 To cur_pc - 1
-            output_string &= pcs_Apps(x, 0) & ","
-        Next
-        output_string &= vbCrLf
+        'For x As Integer = 0 To cur_pc - 1
+        'output_string &= pcs_Apps(x, 0) & ","
+        'Next
+        'output_string &= vbCrLf
         For y As Integer = 0 To max_app - 1
             For x As Integer = 0 To cur_pc - 1
-
-
 
                 If Not pcs_Apps(x, y) = Nothing Then
                     ' Kill "   "
