@@ -612,7 +612,6 @@ Public Class HTML_Document_Array
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
-    ''' <returns>Application count</returns>
     Private Sub installed_Apps()
         Try
             ' Take out the part with the application names, and clean up some of the HTML code.
