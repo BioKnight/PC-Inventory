@@ -205,10 +205,11 @@ Public Class Read_Belarc_Profile
         End Get
     End Property
 
+
+    ' ******** Need to find a better way to do this.  This array is dangerous! ********
     Public Function all_PCs_Apps() As String
         ' pc1 name,     pc2 name,       pc3 name
         ' pc1 Software, pc2 Software,   pc3 Software
-        Dim pcs(html_list.Count) as string
         Dim pcs_Apps(html_list.Count - 1, 500) As String
         Dim cur_pc As Integer = 0
         Dim cur_app As Integer = 0
@@ -220,6 +221,9 @@ Public Class Read_Belarc_Profile
             pcs_Apps(cur_pc, cur_app) = pc.computer_Name
             cur_app += 1
             For Each app As String In pc.Applications
+                ' There is an issue here that is causing "COMPANYVERS_NAME - PRODUCTVERS_NAME" in output.
+                ' Probably in the 'Read'
+                If app = "" Then Continue For
                 pcs_Apps(cur_pc, cur_app) = app
                 cur_app += 1
             Next
@@ -227,16 +231,23 @@ Public Class Read_Belarc_Profile
             cur_app = 0
             cur_pc += 1
         Next
-        Array.Sort(pcs_Apps)
 
         ' Build the Output
-
-        For x As Integer = 0 To cur_pc - 1
-            output_string &= pcs_Apps(x, 0) & ","
-        Next
-        output_string &= vbCrLf
+        'For x As Integer = 0 To cur_pc - 1
+        'output_string &= pcs_Apps(x, 0) & ","
+        'Next
+        'output_string &= vbCrLf
         For y As Integer = 0 To max_app - 1
             For x As Integer = 0 To cur_pc - 1
+
+                If Not pcs_Apps(x, y) = Nothing Then
+                    ' Kill "   "
+                    pcs_Apps(x, y) = pcs_Apps(x, y).Replace("   ", " ")
+                    ' Kill "No Company Name -"
+                    If pcs_Apps(x, y).Contains("No Company Name - ") Then
+                        pcs_Apps(x, y) = pcs_Apps(x, y).Replace("No Company Name - ", "")
+                    End If
+                End If
                 output_string &= pcs_Apps(x, y) & ","
             Next
             output_string &= vbCrLf
@@ -601,7 +612,6 @@ Public Class HTML_Document_Array
     ''' <summary>
     ''' Gets a count of all the applications, and fills a list containing all the application names.
     ''' </summary>
-    ''' <returns>Application count</returns>
     Private Sub installed_Apps()
         Try
             ' Take out the part with the application names, and clean up some of the HTML code.
@@ -623,9 +633,11 @@ Public Class HTML_Document_Array
                     Dim temp_Line As String = line.Remove(0, line.LastIndexOf(";") + 1) ' Remove the unwanted section at the beginning of the line.
                     temp_Line = temp_Line.Replace("   ", " ").Trim() ' remove large spaces, beginning, and trailing spaces.
                     If temp_Line = "" Then Continue For ' Do not add blank lines.
+                    If all_Apps.Contains(temp_Line) Then Continue For
                     all_Apps.Add(temp_Line) ' Add the application title to the list.
                 End If
             Next
+            all_Apps.Sort()
         Catch ex As Exception
             all_Apps.Add(ex.Message)
         End Try
